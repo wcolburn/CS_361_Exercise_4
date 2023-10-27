@@ -54,7 +54,20 @@ new_state.do_work
 
 require 'candy_service'
 
-machine = CandyMachine.new
+class CandyMachineHandler
+  candyMachine = CandyMachine.new
+  def prepare
+    candyMachine.prepare
+  end
+  def ready?
+    candyMachine.ready?
+  end
+  def make!
+    candyMachine.make!
+  end
+end
+
+machine = CandyMachineHandler.new
 machine.prepare
 
 if machine.ready?

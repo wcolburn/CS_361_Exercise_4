@@ -15,11 +15,7 @@ end
 def audit_sanity(bedtime_mental_state)
 
   if bedtime_mental_state.auditable?
-    begin
-      MorningMentalState.new()
-    rescue Exception =>
-      # Handle exception
-    end
+    MorningMentalState.new()
   else
     raise Exception.new "External service is offline"
 end

@@ -13,18 +13,22 @@ class MentalState
 end
 
 def audit_sanity(bedtime_mental_state)
-  return 0 unless bedtime_mental_state.auditable?
-  if bedtime_mental_state.audit!.ok?
-    MorningMentalState.new(:ok)
+
+  if bedtime_mental_state.auditable?
+    begin
+      MorningMentalState.new()
+    rescue Exception =>
+      # Handle exception
+    end
   else
-    MorningMentalState.new(:not_ok)
-  end
+    raise Exception.new "External service is offline"
 end
 
-if audit_sanity(bedtime_mental_state) == 0
-  puts "error"
-else
+
+begin
   new_state = audit_sanity(bedtime_mental_state)
+rescue Exception => e
+  # Handle the exception
 end
 
 
